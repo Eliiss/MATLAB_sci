@@ -43,5 +43,5 @@ ylabel('y');
 colorbar;  % Añade la barra de color qu muestra la escala de valores de z 
 % correspondientes a los diferentes colores en el gráfico de contorno.
 
-% Añadir un título general a la figura
+% Añadir un título a la figura
 sgtitle('Representación 3D de la función'); 

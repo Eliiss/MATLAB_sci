@@ -1,12 +1,11 @@
 % Transformadas de señales
 syms k z a; % Declarar las variables simbólicas (k, z, y la constante a)
-
 %Symbolic Math Toolbox necesita saber que k, z y a son variables simbólicas
 %para poder realizar las operaciones de forma simbólica
 
 % 1. f(k) = 2 + 5k + k^2
 fk1 = 2 + 5*k + k^2;
-Tz1 = ztrans(fk1, k, z); % Calcula la transformada Z
+Tz1 = ztrans(fk1, k, z); % ztrans calcula la transformada Z
 disp('Transformada Z de f(k) = 2 + 5k + k^2:');
 disp(Tz1);
 

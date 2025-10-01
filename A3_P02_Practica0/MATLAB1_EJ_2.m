@@ -6,7 +6,7 @@ clearvars
 % comandos se ha de visualizar el mensaje: "Indique el tamaño de la matriz". 
 
 tam = input('Indique el tamaño de la matriz: ');
-matriz_aleatoria = rand(tam); % Generar la matriz cuadrada y aleatoria 
+matriz_aleatoria = randi([0, 9], tam); % Genera enteros aleatorios entre 0 y 9
 
 %2. A partir de la matriz construida, el script deberá calcular y presentar por pantalla los siguientes datos:
 
@@ -50,7 +50,7 @@ disp('Varianzas:');
 disp(varianzas);
 
 %subplot(filas, columnas, número_de_subgráfico)
-subplot(2, 2, 1); % dividir ventana en una cuadrícula de 2 filas y 2 columnas = 4 subgráficos y en el primer subgráfico
+subplot(2, 2, 1); % dividir ventana en una cuadrícula de 2 filas y 2 columnas = 4 subgráficos; en el primer subgráfico
 plot(maximos, 'o-');
 title('Máximo por fila');
 xlabel('Fila');

@@ -49,11 +49,15 @@ disp(B);
 % •Calcule y muestre por pantalla:  
 % •El valor del determinante y el rango de cada una de las matrices 
 disp("--- Matriz A ---");
-A_det = det(A);
-disp ("El determinante de A es:");
-disp(A_det);
+if size(A, 1)== size(A, 2)
+    A_det = det(A);
+    disp ("El determinante de A es:");
+    disp(A_det);
+else 
+    disp ("No se puede realizar la el determinate de matrices no cuadradas: ");
+end
 
-A_rang = range(A);
+A_rang = rank(A);
 disp ("El rango de A es:");
 disp(A_rang);
 
@@ -63,10 +67,10 @@ if size(B, 1)== size(B, 2)
     disp ("El determinante de B es:");
     disp(B_det);
 else 
-        disp ("No se puede realizar la multiplicación de matrices: ");
+    disp ("No se puede realizar la el determinate de matrices no cuadradas: ");
 end
 
-B_rang = range(B);
+B_rang = rank(B);
 disp ("El rango de B es:");
 disp(B_rang);
 
@@ -76,7 +80,11 @@ A_trans = A';
 disp ("La matriz transpuesta A es:");
 disp(A_trans);
 
-if size(A, 1)== size(A, 2) && A_det ~=0
+% Establecer un umbral para considerar el determinante como "cero"
+umbral = 1e-10; % Un valor pequeño, pero mayor que los errores de redondeo
+%Cuando MATLAB realiza cálculos con números de punto flotante, pueden ocurrir pequeños errores de redondeo. 
+%Esto significa que el determinante de una matriz que debería ser singular (no invertible) podría dar un valor muy pequeño en lugar de cero
+if size(A, 1) == size(A, 2) && abs(A_det) > umbral
     A_inv = inv(A);
     disp ("La matriz inversa A es:");
     disp(A_inv);
@@ -89,10 +97,10 @@ B_trans = B';
 disp ("La matriz transpuesta B es:");
 disp(B_trans);
 
-if size(B, 1)== size(B, 2) && B_det ~=0
+if size(B, 1)== size(B, 2) && abs(B_det) > umbral
     B_inv = inv(B);
     disp ("La matriz inversa B es:");
-    disp(A_inv);
+    disp(B_inv);
 else 
     disp ("No se puede hacer la inversa de la matriz");
 end 
@@ -126,6 +134,6 @@ disp(vector_fila_AB);
 % •Un vector columna obtenido concatenando la primera columna de cada una de las matrices 
 A_col = A(:, 1);
 B_col = B(:, 1);
-vector_col_AB = [A_col B_col];
+vector_col_AB = [A_col; B_col];
 disp ("El vector columna obtenido concatenando la primera columna de cada una de las matrices es:");
 disp(vector_col_AB);

@@ -3,17 +3,21 @@ syms k z a; % Declarar las variables simbólicas (k, z, y la constante a)
 %Symbolic Math Toolbox necesita saber que k, z y a son variables simbólicas
 %para poder realizar las operaciones de forma simbólica
 
-% 1. f(k) = 2 + 5k + k^2
+% 1.Obtenga la transformada z de la siguiente función: f(k) = 2 + 5k + k^2
 fk1 = 2 + 5*k + k^2;
 Tz1 = ztrans(fk1, k, z); % ztrans calcula la transformada Z
 disp('Transformada Z de f(k) = 2 + 5k + k^2:');
 disp(Tz1);
 
-% 2. f(k) = sin(k) * e^(-ak)
+%Represente gráficamente las señales original y transformada.
+
+% 2.Obtenga la transformada z de la siguiente función: f(k) = sin(k) * e^(-ak)
 fk2 = sin(k) * exp(-a*k);
 Tz2 = ztrans(fk2, k, z); % Calcula la transformada Z
 disp('Transformada Z de f(k) = sin(k) * e^(-ak):');
 disp(Tz2);
+
+%Represente gráficamente las señales original y transformada.
 
 % 3. Dada la función de transferencia discreta 
 % T(z) = (0.4*z^2) / (z^3 - z^2 + 0.1z + 0.02)

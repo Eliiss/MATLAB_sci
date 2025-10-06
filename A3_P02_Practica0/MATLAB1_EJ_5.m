@@ -11,11 +11,35 @@ disp(Tz1);
 
 %Represente gráficamente las señales original y transformada.
 
+% Visualización de la señal original:
+k_valores = 0:10; % Valores discretos de k
+fk1_valores = subs(fk1, k, k_valores); % Sustituir k con los valores para obtener los valores de fk1
+figure;
+subplot(3, 1, 1);
+stem(k_valores, fk1_valores, 'filled'); % 'stem'para representar datos discretos
+title('Señal Original f(k) = 2 + 5k + k^2');
+xlabel('k (Tiempo Discreto)');
+ylabel('Amplitud');
+grid on;
+
 % 2.Obtenga la transformada z de la siguiente función: f(k) = sin(k) * e^(-ak)
 fk2 = sin(k) * exp(-a*k);
 Tz2 = ztrans(fk2, k, z); % Calcula la transformada Z
 disp('Transformada Z de f(k) = sin(k) * e^(-ak):');
 disp(Tz2);
+
+% Visualización de la señal original:
+k_valores = 0:10;
+%necesitamos un valor para 'a'
+a_valor = 0.1;  %valor de 'a' (constante)
+fk2_valores = subs(fk2, {k, a}, {k_valores, a_valor}); % Sustituir k y a con los valores
+figure;
+subplot(3, 1, 1); 
+stem(k_valores, fk2_valores, 'filled');
+title('Señal Original f(k) = sin(k) * e^{-ak}, a = 0.1');
+xlabel('k (Tiempo Discreto)');
+ylabel('Amplitud');
+grid on
 
 %Represente gráficamente las señales original y transformada.
 

@@ -28,7 +28,9 @@ net = fitnet(hiddenLayerSize);            % net.layers{1}.transferFcn = 'tansig'
 % Algoritmo de entrenamiento (optimizador):
 % Por defecto en fitnet suele ser 'trainlm' (Levenberg-Marquardt), muy rápido en problemas pequeños.
 % Aquí forzamos explícitamente 'traingdm' (descenso gradiente con momento).
-net.trainFcn = 'traingdm';    
+net.trainFcn = 'trainlm';    %para con validacion en la 375 
+%training state como va disminuyendo la gradiente 
+%si sube el error en un epoca no lo considera 
 
 % (Opcional) Otros hiperparámetros del optimizador:
 %net.trainParam.lr       = 1e-2;         % tasa de aprendizaje (relevante en traingdm)

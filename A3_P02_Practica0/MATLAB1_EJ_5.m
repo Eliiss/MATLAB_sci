@@ -22,6 +22,9 @@ xlabel('k (Tiempo Discreto)');
 ylabel('Amplitud');
 grid on;
 
+% Visualización de la señal transformada:
+ztrans_plot1 = ezplot(Tz1); 
+
 % 2.Obtenga la transformada z de la siguiente función: f(k) = sin(k) * e^(-ak)
 fk2 = sin(k) * exp(-a*k);
 Tz2 = ztrans(fk2, k, z); % Calcula la transformada Z
@@ -39,9 +42,10 @@ stem(k_valores, fk2_valores, 'filled');
 title('Señal Original f(k) = sin(k) * e^{-ak}, a = 0.1');
 xlabel('k (Tiempo Discreto)');
 ylabel('Amplitud');
-grid on
+grid on;
 
-%Represente gráficamente las señales original y transformada.
+% Visualización de la señal transformada:
+ztrans_plot2 = ezplot(Tz2); 
 
 % 3. Dada la función de transferencia discreta 
 % T(z) = (0.4*z^2) / (z^3 - z^2 + 0.1z + 0.02)

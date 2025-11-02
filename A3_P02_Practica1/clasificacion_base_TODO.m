@@ -28,7 +28,7 @@ net = patternnet(hiddenLayerSize);         % MLP para clasificación (softmax + 
 % (Opcional) Algoritmo de entrenamiento:
 % net.trainFcn = 'trainscg';               % por defecto en patternnet (bueno y robusto)
 % net.trainFcn = 'trainlm';                % LM: muy rápido en datasets pequeños
-net.trainFcn = 'traingdm';                 % descenso gradiente con momento  
+net.trainFcn = 'trainlm';                 % descenso gradiente con momento  
 
 % División aleatoria 70/15/15 (train/val/test) para early stopping y evaluación final
 net.divideFcn = 'dividerand';              % división aleatoria por defecto

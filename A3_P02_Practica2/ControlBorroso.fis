@@ -1,0 +1,46 @@
+[System]
+Name='ControlBorroso'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=2
+NumRules=2
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='E_d'
+Range=[0 15]
+NumMFs=3
+MF1='PEQUEÑO':'trimf',[0 0 7.5]
+MF2='MEDIANO':'trimf',[1.25 7.5 13.75]
+MF3='GRANDE':'trimf',[7.5 15 15]
+
+[Input2]
+Name='E_theta'
+Range=[-3.142 3.142]
+NumMFs=2
+MF1='NEGATIVO':'trapmf',[-3.412 -3.412 -1.571 1.571]
+MF2='POSITIVO':'trapmf',[-1.571 1.571 3.142 3.412]
+
+[Output1]
+Name='V'
+Range=[0 1]
+NumMFs=3
+MF1='PEQUEÑA':'trimf',[-0.4167 0 0.4167]
+MF2='MEDIANA':'trimf',[0.08335 0.5 0.9165]
+MF3='GRANDE':'trimf',[0.5835 1 1.417]
+
+[Output2]
+Name='W'
+Range=[-1 1]
+NumMFs=2
+MF1='NEGATIVO':'trimf',[-1 -1 0]
+MF2='POSITIVO':'trimf',[0 1 1]
+
+[Rules]
+0 1, 1 1 (1) : 1
+0 2, 1 2 (1) : 1

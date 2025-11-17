@@ -1,0 +1,83 @@
+Control de posición con la toolbox 'Fuzzy Logic Toolbox' para un robot móvil que se mueva sin obstáculos
+
+Generar un destino en la habitación para que el robot se mueva al destino -> igual que en control neuronal
+
+PL2 - Parte 2 -> intentar que el robot siga una trayectoria: control de posición (target final) y TRAYECTORIA
+
+Cambiar el destino en función del tiempo y el robot debe ir siguiendo ese destino cambiante -> símil con galgo persiguiendo una liebre
+
+Dos controladores: llegar al destino final, seguir la trayectoria
+
+Próximo día: repetir lo mismo pero colocando obstáculos -> llegar al destino final y sortear los obstáculos que aparezcan
+
+Todo esto nos prepara para la práctica final: robot que sigue trayectoria elíptica y tiene que evitar obstáculos (circuito de carreras)
+
+Será un modelo no holonómico: un vehículo no puede girar sobre sí mismo, se gira el volante -> en esta práctica, el robot es como una ROOMBA
+-> holonómico
+
+________________________________________________________
+
+Se parte de la misma hoja de simulink de control neuronal (FIG. 1)
+
+Sustituir el controlador por uno fuzzy
+
+Las ecuaciones del movimiento del robot también están hechas -> subsistema robot y position errors son idénticos
+
+
+
+
+Error de distancia máximo? para acotar Ed_max -> sqrt(100+100)=14.14m -> [0,15]
+Error de angulo máximo? [-pi,pi]
+
+_______________
+
+>> fuzzy
+
+
+edit / add variable / input
+edit / add variable / output 
+
+renombrar variables: E_d, E_theta, V, W
+
+controlador fuzzy mamdani
+
+
+
+
+para los parametros de la mf:
+
+-> triangulo: [p1 p2 p3], donde pi son los vértices de la función triangular
+-> trapecio: [p1 p2 p3 p4], pi son la proyección de cada punto al suelo
+
+
+
+
+__________-
+
+
+library browser -> Fuzzy Logic Controller
+
+doble click -> FIS name CON COMILLAS SIMPLES
+
+este bloque solo permite una entrada -> hay que añadir un MUX / DEMUX -> añadir previo
+
+
+
+LUEGO: seleccionar todo -> créate subsystem from selection -> nombre que se quiera(controlador borroso) -> se genera un bloque que hay que sustituir al borroso
+
+
+
+
+Para después: copiar el bloque trajectory generation -> HAY QUE MODIFICAR EL CONTROLADOR QUE ACABAMOS DE HACER
+
+variables de salida como están
+variables de entrada -> error de distancia bajarlo: [0 2] distancia pequeña y distancia grande -> [2 8]/[2 15] conjunto grande saturado
+
+angulo -> afinar la trayectoria -> [-pi pi] -> pero las rampas a un espacio mas pequeño: [-pi/2 pi/2] a [-pi/4 pi/4] -> el resto más saturado
+
+con esto se tienen las funciones miembro modificadas
+
+después, desde el punto de vista de las reglas -> METER MAS REGLAS -> de momento hay velocidad pequeña -> cubrir funciones miembro de distancia para:
+distancia pequeña, mediana, grande -> REPLICAR LAS DOS REGLAS QUE SE HAN ESTABLECIDO PARA MEDIA Y GRANDE -> TOTAL: 6 REGLAS
+velocidad lineal variable en función del error de distancia
+

@@ -3,8 +3,8 @@ clear all; close all; clc;
 %Inicializacion de parametros
 Ts = 100e-3; % Tiempo de muestreo
 x_0 = 0.1;   % Posicion inicial X (con un pequeno desfase para que no se detenga nada mas empezar)
-y_0 = 0.1;   % Posición inicial Y (con un pequeno desfase)
-th_0 = 0;    % Orientación inicial
+y_0 = 0.1;   % Posicion inicial Y (con un pequeno desfase)
+th_0 = 0;    % Orientacion inicial
 
 disp('Ejecutando simulación de seguimiento de trayectoria...');
 sim('TrayectoriaControlFuzzy.slx');

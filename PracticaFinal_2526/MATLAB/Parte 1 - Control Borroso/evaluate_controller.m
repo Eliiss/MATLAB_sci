@@ -29,8 +29,8 @@ function evaluate_controller(graficar)
     w_max = max(vel_angular); w_min = min(vel_angular); w_media = mean(vel_angular);
 
     % --- 2. GEOMETRÍA DEL CIRCUITO ---
-    ancho_mapa   = 161.2;
-    alto_mapa    = 81.2;
+    ancho_mapa   = 161.28;
+    alto_mapa    = 81.18;
     ancho_carril = 4.5;
     num_puntos   = 250;
     

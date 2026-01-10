@@ -6,7 +6,7 @@ close all;
 
 %% 1. INICIO DE ROS
 rosshutdown
-ROS_MASTER_IP = '192.168.0.17';
+ROS_MASTER_IP = '192.168.0.20';
 rosinit(ROS_MASTER_IP);
 
 %% 2. SUSCRIPCIÓN Y ESPERA
@@ -18,7 +18,7 @@ end
 
 %% 3. EJECUCIÓN DE LA SIMULACIÓN
 % Ejecuta el modelo de Simulink
-sim('ackerman_ROS_controller.slx');
+sim('ackerman_ROS_controller_obstaculos.slx');
 
 %% 4. EVALUACIÓN
 % Llama a la función de evaluación, ploteando los resultados (true)

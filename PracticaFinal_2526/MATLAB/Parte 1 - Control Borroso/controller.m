@@ -6,7 +6,7 @@ close all;
 
 %% 1. INICIO DE ROS
 rosshutdown
-ROS_MASTER_IP = '172.22.151.7';
+ROS_MASTER_IP = '172.22.131.230';
 rosinit(ROS_MASTER_IP);
 
 %% 2. SUSCRIPCIÓN Y ESPERA
@@ -18,7 +18,7 @@ end
 
 %% 3. EJECUCIÓN DE LA SIMULACIÓN
 % Ejecuta el modelo de Simulink
-sim('ackerman_ROS_controller_neuro_2022_v2.slx');
+sim('ackerman_ROS_controller_obstaculos.slx');
 
 % %% EXTRA - GUARDAR DATOS
 % try

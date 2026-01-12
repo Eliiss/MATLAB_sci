@@ -1,0 +1,69 @@
+[System]
+Name='fuzzy_controller_optimizado'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=2
+NumRules=8
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='sonar_0_frente'
+Range=[0 15]
+NumMFs=2
+MF1='CERCA':'trimf',[0 2 5]
+MF2='LEJOS':'trimf',[4 10 15]
+
+[Input2]
+Name='sonar_2_dcha_frontal'
+Range=[0 15]
+NumMFs=2
+MF1='CERCA':'trimf',[0 3 7]
+MF2='LEJOS':'trimf',[6 10 15]
+
+[Input3]
+Name='sonar_3_dcha_lateral'
+Range=[0 15]
+NumMFs=3
+MF1='MUY_CERCA':'trimf',[0 1.5 2.6]
+MF2='DISTANCIA_IDEAL':'trimf',[2.4 2.9 3.4]
+MF3='MUY_LEJOS':'trimf',[3.2 8 15]
+
+[Input4]
+Name='sonar_5_dcha_trasero'
+Range=[0 15]
+NumMFs=2
+MF1='CERCA':'trimf',[0 2 5]
+MF2='SEGURO':'trimf',[4.5 9 15]
+
+[Output1]
+Name='Velocidad'
+Range=[0 50]
+NumMFs=3
+MF1='LENTA':'trimf',[0 10 20]
+MF2='MEDIA':'trimf',[15 30 40]
+MF3='RAPIDA':'trimf',[35 45 50]
+
+[Output2]
+Name='GiroVolante'
+Range=[-1.5708 1.5708]
+NumMFs=5
+MF1='GIRAR_IZQ_FUERTE':'trimf',[0.7 1.2 1.5708]
+MF2='RECTO':'trimf',[-0.08 0 0.08]
+MF3='GIRAR_IZQ':'trimf',[0.3 0.6 0.8]
+MF4='GIRAR_DCHA':'trimf',[-0.8 -0.6 -0.3]
+MF5='GIRAR_DCHA_FUERTE':'trimf',[-1.5708 -1.2 -0.7]
+
+[Rules]
+0 0 2 0, 3 2 (1) : 1
+1 0 0 0, 2 5 (1) : 1
+0 0 3 2, 2 5 (1) : 1
+0 0 3 1, 2 3 (1) : 1
+0 0 1 0, 1 1 (1) : 1
+0 1 0 0, 1 4 (1) : 1
+2 2 2 2, 3 2 (1) : 1
+1 1 0 0, 1 5 (1) : 1

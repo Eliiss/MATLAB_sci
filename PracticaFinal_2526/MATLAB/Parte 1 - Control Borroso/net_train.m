@@ -1,44 +1,73 @@
-% train_ackerman_mejorado.m
 clear; close all; clc;
 
 % --- Parámetros ---
+
 matfile = 'training_data_v2.mat';
-% Arquitectura más profunda para captar mejor las curvas
-neurons = [30 15 5];   
-Ts = 0.1;
+
+neurons = [20 10]; % cambiar por la arquitectura deseada
+
+Ts = 0.1; % periodo para gensim (si se desea generar bloque)
 
 % --- 1) Cargar datos ---
+
 S = load(matfile);
-% Usamos la variable training_data como pides
-training_data = S.training_data; 
+
+if ~isfield(S,'training_data')
+
+error('No se encontró la variable training_data en %s', matfile);
+
+end
+
+training_data = S.training_data;
+
+% Aceptar 6xN o N x 6
 
 [r,c] = size(training_data);
-if r==6, data = training_data; else data = training_data'; end
 
-% --- 2) Preparar inputs/outputs ---
-inputs  = data(1:4, :);   
-outputs = data(5:6, :);   
+if r==6
 
-% --- TRUCO: Refuerzo de Curvas (Para que gire de verdad) ---
-% Buscamos dónde el giro es mayor a 0.2 (está girando)
-idx_giro = find(abs(outputs(2,:)) > 0.2);
-% Duplicamos esos datos 4 veces para que la red les de importancia
-inputs_final = [inputs, inputs(:,idx_giro), inputs(:,idx_giro), inputs(:,idx_giro)];
-outputs_final = [outputs, outputs(:,idx_giro), outputs(:,idx_giro), outputs(:,idx_giro)];
+data = training_data; % 6 x N
 
-% --- 3) Generar la red con Algoritmo Bayesiano ---
-net = feedforwardnet(neurons, 'trainbr'); 
+elseif c==6
 
-% --- 4) Configurar y entrenar ---
-% MATLAB normaliza internamente por defecto (aunque no lo veas),
-% esto ayuda a que el giro (-1,1) pese igual que la velocidad (0,40).
-net = configure(net, inputs_final, outputs_final);
-net.trainParam.epochs = 500; % Dale tiempo a aprender
-net = train(net, inputs_final, outputs_final);
+data = training_data'; % convertir a 6 x N
 
-% --- 5) Guardar ---
+else
+
+error('training_data debe tener 6 filas o 6 columnas. Forma actual: %dx%d', r, c);
+
+end
+
+% --- 2) Preparar inputs/outputs (sin normalizar, tal y como pide el enunciado) ---
+
+inputs = data(1:4, :); % 4 x N (sonares 0..3)
+
+outputs = data(5:6, :); % 2 x N (velocidad; angulo volante)
+
+% --- 3) Generar la red ---
+
+net = feedforwardnet(neurons);
+
+% --- 4) Configurar y entrenar (tal y como en el enunciado) ---
+
+net = configure(net, inputs, outputs);
+
+net = train(net, inputs, outputs);
+
+% --- 5) Guardar red entrenada ---
+
 save('ackerman_net_simple.mat','net');
 
-% --- 6) Generar bloque ---
+% --- 6) (Opcional) generar bloque Simulink ---
+
+try
+
 gensim(net, Ts);
-fprintf('Entrenamiento finalizado con refuerzo de curvas.\n');
+
+catch
+
+warning('No se pudo generar el bloque Simulink con gensim. Comprueba licencia/toolbox.');
+
+end
+
+fprintf('Entrenamiento finalizado. Red guardada en ackerman_net_simple.mat\n');

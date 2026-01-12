@@ -6,7 +6,7 @@ close all;
 
 %% 1. INICIO DE ROS
 rosshutdown
-ROS_MASTER_IP = '192.168.0.20';
+ROS_MASTER_IP = '172.22.151.7';
 rosinit(ROS_MASTER_IP);
 
 %% 2. SUSCRIPCIÓN Y ESPERA
@@ -18,7 +18,20 @@ end
 
 %% 3. EJECUCIÓN DE LA SIMULACIÓN
 % Ejecuta el modelo de Simulink
-sim('ackerman_ROS_controller_obstaculos.slx');
+sim('ackerman_ROS_controller_neuro_2022_v2.slx');
+
+% %% EXTRA - GUARDAR DATOS
+% try
+%     % Intentar extraer los datos del objeto de salida 'ans'
+%     training_data = [ans.sim_inputs, ans.sim_outputs]'; 
+% catch
+%     % Si no están en 'ans', probar directamente
+%     training_data = [sim_inputs, sim_outputs]'; 
+% end
+% 
+% % Guarda esta variable
+% save('training_data_v2.mat', 'training_data');
+% fprintf('Datos guardados\n');
 
 %% 4. EVALUACIÓN
 % Llama a la función de evaluación, ploteando los resultados (true)

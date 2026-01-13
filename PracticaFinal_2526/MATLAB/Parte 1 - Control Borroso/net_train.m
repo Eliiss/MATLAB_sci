@@ -1,12 +1,10 @@
 clear; close all; clc;
 
 % --- Parámetros ---
-
-matfile = 'training_data_v2.mat';
-
-neurons = [20 10]; % cambiar por la arquitectura deseada
-
-Ts = 0.1; % periodo para gensim (si se desea generar bloque)
+matfile = 'training_data_v4.mat';
+% Arquitectura más profunda para captar mejor las curvas
+neurons = [40 20 10];   
+Ts = 0.1;
 
 % --- 1) Cargar datos ---
 

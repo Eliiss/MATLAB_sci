@@ -6,7 +6,7 @@ close all;
 
 %% 1. INICIO DE ROS
 rosshutdown
-ROS_MASTER_IP = '172.22.131.230';
+ROS_MASTER_IP = '192.168.1.103';
 rosinit(ROS_MASTER_IP);
 
 %% 2. SUSCRIPCIÓN Y ESPERA
@@ -30,7 +30,7 @@ sim('ackerman_ROS_controller_obstaculos.slx');
 % end
 % 
 % % Guarda esta variable
-% save('training_data_v2.mat', 'training_data');
+% save('training_data_v4.mat', 'training_data');
 % fprintf('Datos guardados\n');
 
 %% 4. EVALUACIÓN

@@ -1,11 +1,9 @@
 %
-% ENTRENAMIENTO DE LA RED PARA CIRCUITO SIN OBSTÁCULOS
+% Entrenamiento de la red para sin obstáculos
 %
 
 % Limpiar workspace:
-clear; 
-close all; 
-clc;
+clear; close all; clc;
 
 %
 % Establecer los parámetros
@@ -19,6 +17,8 @@ neurons = [40 20 10];
 
 % Tiempo de muestreo:
 Ts = 0.1;
+
+% --- 1) Cargar datos ---
 
 % Cargar los datos y manejar errores:
 S = load(matfile);
@@ -42,28 +42,38 @@ else
 error('training_data debe tener 6 filas o 6 columnas. Forma actual: %dx%d', r, c);
 end
 
+% --- 2) Preparar inputs/outputs (sin normalizar, tal y como pide el enunciado) ---
+
 % Preparar las entradas de la red (los 4 sonar):
-inputs = data(1:4, :); % 4 x N
+inputs = data(1:4, :); % 4 x N (sonares 0..3)
 
 % Preparar las salidas de la red (velocidad y ángulo):
-outputs = data(5:6, :); % 2 x N
+outputs = data(5:6, :); % 2 x N (velocidad; angulo volante)
 
-% Configurar la red:
+% --- 3) Generar la red ---
+
 net = feedforwardnet(neurons);
+
+% --- 4) Configurar y entrenar (tal y como en el enunciado) ---
+
 net = configure(net, inputs, outputs);
+
 net = train(net, inputs, outputs);
 
-% Guardar la red:
+% --- 5) Guardar red entrenada ---
+
 save('ackerman_net_simple.mat','net');
 
-% Generar el bloque de Simulink para sustituir al controlador borroso:
+% --- 6) (Opcional) generar bloque Simulink ---
+
 try
+
 gensim(net, Ts);
 
-% Manejar posibles errores:
 catch
+
 warning('No se pudo generar el bloque Simulink con gensim. Comprueba licencia/toolbox.');
+
 end
 
-% Imprimir un mensaje final de confirmación:
 fprintf('Entrenamiento finalizado. Red guardada en ackerman_net_simple.mat\n');

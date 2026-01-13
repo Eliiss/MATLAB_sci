@@ -12,7 +12,7 @@ clc;
 %
 
 % Fichero con datos del control borroso:
-matfile = 'training_data_v4.mat';
+matfile = 'training_data_obstaculos.mat';
 
 % Arquitectura de la red:
 neurons = [40 20 10];  
@@ -54,7 +54,7 @@ net = configure(net, inputs, outputs);
 net = train(net, inputs, outputs);
 
 % Guardar la red:
-save('ackerman_net_simple.mat','net');
+save('ackerman_net_obstaculos.mat','net');
 
 % Generar el bloque de Simulink para sustituir al controlador borroso:
 try
@@ -66,4 +66,4 @@ warning('No se pudo generar el bloque Simulink con gensim. Comprueba licencia/to
 end
 
 % Imprimir un mensaje final de confirmación:
-fprintf('Entrenamiento finalizado. Red guardada en ackerman_net_simple.mat\n');
+fprintf('Entrenamiento finalizado\n');

@@ -18,7 +18,7 @@ end
 
 %% 3. EJECUCIÓN DE LA SIMULACIÓN
 % Ejecuta el modelo de Simulink
-sim('ackerman_ROS_controller_obstaculos.slx');
+sim('ackerman_ROS_controller_neuro_2022_v2.slx');
 
 % %% EXTRA - GUARDAR DATOS
 % try
